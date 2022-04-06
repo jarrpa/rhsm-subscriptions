@@ -35,6 +35,7 @@ import org.candlepin.subscriptions.cloudigrade.CloudigradeService;
 import org.candlepin.subscriptions.cloudigrade.api.model.ConcurrencyReport;
 import org.candlepin.subscriptions.cloudigrade.api.model.ConcurrentUsage;
 import org.candlepin.subscriptions.cloudigrade.api.model.UsageCount;
+import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
 import org.candlepin.subscriptions.db.model.ServiceLevel;
 import org.candlepin.subscriptions.db.model.Usage;
@@ -103,7 +104,7 @@ class CloudigradeAccountUsageCollectorTest {
     assertEquals(
         1,
         accountUsage
-            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY))
+            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
             .getTotals(HardwareMeasurementType.AWS_CLOUDIGRADE)
             .getInstances());
   }
@@ -161,7 +162,7 @@ class CloudigradeAccountUsageCollectorTest {
     assertEquals(
         1,
         accountUsage
-            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY))
+            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
             .getTotals(HardwareMeasurementType.AWS_CLOUDIGRADE)
             .getInstances());
   }

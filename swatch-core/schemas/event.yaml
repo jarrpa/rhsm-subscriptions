@@ -165,3 +165,8 @@ properties:
       - azure
       - oracle
     required: false
+  billing_account_id:
+    description: The account ID used for billing.
+    type: string
+    existingJavaType: java.util.Optional<String>
+    required: false

@@ -90,6 +90,9 @@ public class TallySnapshot implements Serializable {
   @Column(name = "billing_provider")
   private BillingProvider billingProvider = BillingProvider._ANY;
 
+  @Column(name = "billing_account_id")
+  private String billingAccountId;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "granularity")
   private Granularity granularity;
@@ -235,7 +238,8 @@ public class TallySnapshot implements Serializable {
         && serviceLevel == that.serviceLevel
         && usage == that.usage
         && granularity == that.granularity
-        && billingProvider == that.billingProvider;
+        && billingProvider == that.billingProvider
+        && Objects.equals(billingAccountId, that.billingAccountId);
   }
 
   @Override
@@ -248,6 +252,7 @@ public class TallySnapshot implements Serializable {
         serviceLevel,
         usage,
         granularity,
-        billingProvider);
+        billingProvider,
+        billingAccountId);
   }
 }

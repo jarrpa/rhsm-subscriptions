@@ -27,13 +27,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
 import org.candlepin.subscriptions.db.model.ServiceLevel;
 import org.candlepin.subscriptions.db.model.Usage;
 import org.candlepin.subscriptions.exception.ErrorCode;
 import org.candlepin.subscriptions.json.TallyMeasurement.Uom;
 import org.candlepin.subscriptions.json.TallySnapshot;
-import org.candlepin.subscriptions.json.TallySnapshot.BillingProvider;
 import org.candlepin.subscriptions.json.TallySummary;
 import org.candlepin.subscriptions.registry.TagProfile;
 import org.candlepin.subscriptions.rhmarketplace.api.model.UsageEvent;
@@ -114,8 +115,11 @@ public class RhMarketplacePayloadMapper {
     boolean isSpecificServiceLevel =
         !List.of(TallySnapshot.Sla.ANY, TallySnapshot.Sla.__EMPTY__).contains(snapshot.getSla());
 
+    boolean isSpecificBillingProvider =
+        !List.of(TallySnapshot.BillingProvider.ANY, TallySnapshot.BillingProvider.__EMPTY__).contains(snapshot.getBillingProvider());
+
     boolean isSnapshotPAYGEligible =
-        isHourlyGranularity && isApplicableProduct && isSpecificUsage && isSpecificServiceLevel;
+        isHourlyGranularity && isApplicableProduct && isSpecificUsage && isSpecificServiceLevel && isSpecificBillingProvider;
 
     if (!isSnapshotPAYGEligible) {
       log.debug("Snapshot not eligible for sending to RHM {}", snapshot);
@@ -125,9 +129,9 @@ public class RhMarketplacePayloadMapper {
 
   protected boolean isSnapshotRHMarketplaceEligible(TallySnapshot snapshot) {
     return snapshot.getBillingProvider() == null
-        || snapshot.getBillingProvider().equals(BillingProvider.RED_HAT)
-        || snapshot.getBillingProvider().equals(BillingProvider.ANY)
-        || snapshot.getBillingProvider().equals(BillingProvider.__EMPTY__);
+        || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.RED_HAT)
+        || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.ANY)
+        || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.__EMPTY__);
   }
 
   /**
@@ -159,7 +163,9 @@ public class RhMarketplacePayloadMapper {
           new UsageCalculation.Key(
               productId,
               ServiceLevel.fromString(snapshot.getSla().toString()),
-              Usage.fromString(snapshot.getUsage().toString()));
+              Usage.fromString(snapshot.getUsage().toString()),
+              BillingProvider.fromString(snapshot.getBillingProvider().toString()),
+              null);
 
       OffsetDateTime snapshotDate = snapshot.getSnapshotDate();
       String eventId = snapshot.getId().toString();

@@ -65,7 +65,7 @@ public class AccountUsageCalculation {
   public void addCalculation(UsageCalculation calc) {
     String productId = calc.getProductId();
     this.calculations.put(
-        new UsageCalculation.Key(productId, calc.getSla(), calc.getUsage()), calc);
+        new UsageCalculation.Key(productId, calc.getSla(), calc.getUsage(), calc.getBillingProvider(), calc.getBillingAccountId()), calc);
     this.products.add(productId);
   }
 

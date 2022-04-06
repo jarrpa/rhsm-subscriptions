@@ -215,6 +215,8 @@ public class Host implements Serializable {
       String productId,
       ServiceLevel sla,
       Usage usage,
+      BillingProvider billingProvider,
+      String billingAccountId,
       Boolean asHypervisor,
       int sockets,
       int cores,
@@ -222,7 +224,7 @@ public class Host implements Serializable {
 
     HostTallyBucket bucket =
         new HostTallyBucket(
-            this, productId, sla, usage, asHypervisor, cores, sockets, measurementType);
+            this, productId, sla, usage, billingProvider,billingAccountId, asHypervisor, cores, sockets, measurementType);
     addBucket(bucket);
     return bucket;
   }

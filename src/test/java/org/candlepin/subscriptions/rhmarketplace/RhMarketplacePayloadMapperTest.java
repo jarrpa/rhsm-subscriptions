@@ -100,6 +100,7 @@ class RhMarketplacePayloadMapperTest {
             .withUsage(Usage.PRODUCTION)
             .withTallyMeasurements(tallyMeasurements)
             .withSla(Sla.PREMIUM)
+            .withBillingProvider(TallySnapshot.BillingProvider.RED_HAT)
             .withGranularity(HOURLY);
 
     var actual =
@@ -190,6 +191,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("OpenShift-metrics")
                 .withUsage(Usage.PRODUCTION)
                 .withSla(Sla.PREMIUM)
+                .withBillingProvider(BillingProvider.RED_HAT)
                 .withGranularity(HOURLY),
             true);
 
@@ -199,6 +201,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("OpenShift-metrics")
                 .withUsage(Usage.PRODUCTION)
                 .withSla(Sla.ANY)
+                .withBillingProvider(BillingProvider.ANY)
                 .withGranularity(HOURLY),
             false);
 
@@ -208,6 +211,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("OpenShift-metrics")
                 .withUsage(Usage.PRODUCTION)
                 .withSla(Sla.PREMIUM)
+                .withBillingProvider(BillingProvider.ANY)
                 .withGranularity(DAILY),
             false);
 
@@ -217,6 +221,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("OpenShift-metrics")
                 .withUsage(Usage.ANY)
                 .withSla(Sla.PREMIUM)
+                .withBillingProvider(BillingProvider.ANY)
                 .withGranularity(HOURLY),
             false);
 
@@ -226,6 +231,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("OpenShift-dedicated-metrics")
                 .withUsage(Usage.PRODUCTION)
                 .withSla(Sla.PREMIUM)
+                .withBillingProvider(BillingProvider.RED_HAT)
                 .withGranularity(HOURLY),
             true);
 
@@ -235,6 +241,7 @@ class RhMarketplacePayloadMapperTest {
                 .withProductId("RHEL")
                 .withUsage(Usage.PRODUCTION)
                 .withSla(Sla.PREMIUM)
+                .withBillingProvider(BillingProvider.RED_HAT)
                 .withGranularity(HOURLY),
             false);
 

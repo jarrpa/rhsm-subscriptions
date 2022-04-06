@@ -30,6 +30,7 @@ import org.candlepin.subscriptions.cloudigrade.ApiException;
 import org.candlepin.subscriptions.cloudigrade.CloudigradeService;
 import org.candlepin.subscriptions.cloudigrade.api.model.ConcurrencyReport;
 import org.candlepin.subscriptions.cloudigrade.api.model.UsageCount;
+import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
 import org.candlepin.subscriptions.db.model.ServiceLevel;
 import org.candlepin.subscriptions.db.model.Usage;
@@ -120,7 +121,8 @@ public class CloudigradeAccountUsageCollector {
     if (usageCount.getUsage() == null) {
       usage = Usage._ANY;
     }
-    return new UsageCalculation.Key(productId, sla, usage);
+    // TODO: Determine if billingProvider & billingAcctId should be added to usageCount
+    return new UsageCalculation.Key(productId, sla, usage, BillingProvider._ANY, null);
   }
 
   private String extractProductId(
