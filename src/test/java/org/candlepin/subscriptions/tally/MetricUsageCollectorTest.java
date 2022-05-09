@@ -174,7 +174,8 @@ class MetricUsageCollectorTest {
         metricUsageCollector.collectHour(accountServiceInventory, OffsetDateTime.MIN);
     assertNotNull(accountUsageCalculation);
     UsageCalculation.Key usageCalculationKey =
-        new UsageCalculation.Key(RHEL, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcct");
+        new UsageCalculation.Key(
+            RHEL, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcct");
     assertTrue(accountUsageCalculation.containsCalculation(usageCalculationKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -243,7 +244,8 @@ class MetricUsageCollectorTest {
             .withMeasurements(Collections.singletonList(measurement))
             .withSla(Event.Sla.PREMIUM)
             .withBillingProvider(Event.BillingProvider.RED_HAT)
-            .withBillingAccountId(Optional.of("sellerAcctId"));;
+            .withBillingAccountId(Optional.of("sellerAcctId"));
+    ;
     AccountServiceInventory accountServiceInventory = createTestAccountServiceInventory();
     when(eventController.fetchEventsInTimeRangeByServiceType(any(), any(), any(), any()))
         .thenReturn(Stream.of(event));
@@ -258,19 +260,21 @@ class MetricUsageCollectorTest {
                 Set.of(ServiceLevel._ANY, ServiceLevel.PREMIUM)
                     .forEach(
                         sla -> {
-                          for(BillingProvider billingProvider : Set.of(BillingProvider._ANY, BillingProvider.RED_HAT)){
-                          HostBucketKey key = new HostBucketKey();
-                          key.setProductId(RHEL);
-                          key.setSla(sla);
-                          key.setBillingProvider(billingProvider);
-                          key.setBillingAccountId("sellerAcctId");
-                          key.setUsage(usage);
-                          key.setAsHypervisor(false);
-                          HostTallyBucket bucket = new HostTallyBucket();
-                          bucket.setKey(key);
-                          bucket.setHost(instance);
-                          expected.add(bucket);
-                        }}));
+                          for (BillingProvider billingProvider :
+                              Set.of(BillingProvider._ANY, BillingProvider.RED_HAT)) {
+                            HostBucketKey key = new HostBucketKey();
+                            key.setProductId(RHEL);
+                            key.setSla(sla);
+                            key.setBillingProvider(billingProvider);
+                            key.setBillingAccountId("sellerAcctId");
+                            key.setUsage(usage);
+                            key.setAsHypervisor(false);
+                            HostTallyBucket bucket = new HostTallyBucket();
+                            bucket.setKey(key);
+                            bucket.setHost(instance);
+                            expected.add(bucket);
+                          }
+                        }));
     assertEquals(expected, new HashSet<>(instance.getBuckets()));
   }
 
@@ -295,7 +299,8 @@ class MetricUsageCollectorTest {
         metricUsageCollector.collectHour(accountServiceInventory, OffsetDateTime.MIN);
     assertNotNull(accountUsageCalculation);
     UsageCalculation.Key usageCalculationKey =
-        new UsageCalculation.Key(RHEL, ServiceLevel._ANY, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcctId");
+        new UsageCalculation.Key(
+            RHEL, ServiceLevel._ANY, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcctId");
     assertTrue(accountUsageCalculation.containsCalculation(usageCalculationKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -326,7 +331,8 @@ class MetricUsageCollectorTest {
         metricUsageCollector.collectHour(accountServiceInventory, OffsetDateTime.MIN);
     assertNotNull(accountUsageCalculation);
     UsageCalculation.Key usageCalculationKey =
-        new UsageCalculation.Key(RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, "sellerAcctId");
+        new UsageCalculation.Key(
+            RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, "sellerAcctId");
     assertTrue(accountUsageCalculation.containsCalculation(usageCalculationKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -360,7 +366,8 @@ class MetricUsageCollectorTest {
     assertNotNull(accountUsageCalculation);
 
     UsageCalculation.Key serverKey =
-        new UsageCalculation.Key(OSD_PRODUCT_ID, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
+        new UsageCalculation.Key(
+            OSD_PRODUCT_ID, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
     assertTrue(accountUsageCalculation.containsCalculation(serverKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -372,7 +379,11 @@ class MetricUsageCollectorTest {
     // Not defined on the event, should not exist.
     UsageCalculation.Key wsKey =
         new UsageCalculation.Key(
-            RHEL_WORKSTATION_SWATCH_PRODUCT_ID, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider._ANY, "sellerAcctId");
+            RHEL_WORKSTATION_SWATCH_PRODUCT_ID,
+            ServiceLevel.PREMIUM,
+            Usage._ANY,
+            BillingProvider._ANY,
+            "sellerAcctId");
     assertFalse(accountUsageCalculation.containsCalculation(wsKey));
   }
 
@@ -399,7 +410,8 @@ class MetricUsageCollectorTest {
     assertNotNull(accountUsageCalculation);
 
     UsageCalculation.Key engIdKey =
-        new UsageCalculation.Key(RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
+        new UsageCalculation.Key(
+            RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
     assertTrue(accountUsageCalculation.containsCalculation(engIdKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -413,7 +425,12 @@ class MetricUsageCollectorTest {
         .forEach(
             swatchProdId -> {
               UsageCalculation.Key key =
-                  new UsageCalculation.Key(swatchProdId, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider._ANY, "sellerAcctId");
+                  new UsageCalculation.Key(
+                      swatchProdId,
+                      ServiceLevel.PREMIUM,
+                      Usage._ANY,
+                      BillingProvider._ANY,
+                      "sellerAcctId");
               assertFalse(
                   accountUsageCalculation.containsCalculation(key),
                   "Unexpected calculation: " + swatchProdId);
@@ -442,7 +459,8 @@ class MetricUsageCollectorTest {
         metricUsageCollector.collectHour(accountServiceInventory, OffsetDateTime.MIN);
     assertNotNull(accountUsageCalculation);
     UsageCalculation.Key usageCalculationKey =
-        new UsageCalculation.Key(RHEL, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcctId");
+        new UsageCalculation.Key(
+            RHEL, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, "sellerAcctId");
     assertTrue(accountUsageCalculation.containsCalculation(usageCalculationKey));
     assertEquals(
         Double.valueOf(42.0),

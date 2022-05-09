@@ -74,17 +74,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     UsageCalculation a1ProductCalc = a1Calc.getCalculation(createUsageKey(getTestProduct()));
     roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
-      List<TallySnapshot> currentSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> currentSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, currentSnaps.size());
@@ -100,17 +102,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     String account = a1Calc.getAccount();
     roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
-      List<TallySnapshot> currentSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> currentSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, currentSnaps.size());
@@ -123,17 +127,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     a1ProductCalc.addPhysical(100, 200, 50);
     roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
-      List<TallySnapshot> updatedSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> updatedSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, updatedSnaps.size());
@@ -168,17 +174,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     // Roll to the initial high values
     roller.rollSnapshots(account, Arrays.asList(a1HighCalc));
 
-      List<TallySnapshot> currentSnaps =
-        repository.findSnapshot("A1",
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> currentSnaps =
+        repository
+            .findSnapshot(
+                "A1",
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, currentSnaps.size());
@@ -190,17 +198,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     // Roll again with the low values
     roller.rollSnapshots(account, Arrays.asList(a1LowCalc));
 
-      List<TallySnapshot> updatedSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> updatedSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, updatedSnaps.size());
@@ -222,17 +232,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     AccountUsageCalculation calc = createAccountCalc("12345678", "O1", getTestProduct(), 0, 0, 0);
     roller.rollSnapshots("12345678", Collections.singletonList(calc));
 
-      List<TallySnapshot> currentSnaps =
-        repository.findSnapshot("A1",
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> currentSnaps =
+        repository
+            .findSnapshot(
+                "A1",
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(0, currentSnaps.size());
@@ -268,17 +280,19 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
 
     repository.saveAll(List.of(orig, dupe));
 
-      List<TallySnapshot> currentSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> currentSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(2, currentSnaps.size());
@@ -288,24 +302,27 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
 
     roller.rollSnapshots(account, List.of(a1Calc));
 
-      List<TallySnapshot> updatedSnaps =
-        repository.findSnapshot(account,
-                        getTestProduct(),
-                        granularity,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        startOfGranularPeriod,
-                        endOfGranularPeriod,
-                        PageRequest.of(0, 100))
+    List<TallySnapshot> updatedSnaps =
+        repository
+            .findSnapshot(
+                account,
+                getTestProduct(),
+                granularity,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                startOfGranularPeriod,
+                endOfGranularPeriod,
+                PageRequest.of(0, 100))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, updatedSnaps.size());
   }
 
   private UsageCalculation.Key createUsageKey(String product) {
-    return new UsageCalculation.Key(product, ServiceLevel.EMPTY, Usage.EMPTY, BillingProvider.EMPTY, "sellerAcct");
+    return new UsageCalculation.Key(
+        product, ServiceLevel.EMPTY, Usage.EMPTY, BillingProvider.EMPTY, "sellerAcct");
   }
 
   private AccountUsageCalculation createTestData() {

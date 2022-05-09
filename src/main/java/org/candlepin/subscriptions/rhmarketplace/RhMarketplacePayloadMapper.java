@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
 import org.candlepin.subscriptions.db.model.ServiceLevel;
@@ -120,10 +119,15 @@ public class RhMarketplacePayloadMapper {
         !List.of(TallySnapshot.Sla.ANY, TallySnapshot.Sla.__EMPTY__).contains(snapshot.getSla());
 
     boolean isSpecificBillingProvider =
-        !List.of(TallySnapshot.BillingProvider.ANY, TallySnapshot.BillingProvider.__EMPTY__).contains(snapshot.getBillingProvider());
+        !List.of(TallySnapshot.BillingProvider.ANY, TallySnapshot.BillingProvider.__EMPTY__)
+            .contains(snapshot.getBillingProvider());
 
     boolean isSnapshotPAYGEligible =
-        isHourlyGranularity && isApplicableProduct && isSpecificUsage && isSpecificServiceLevel && isSpecificBillingProvider;
+        isHourlyGranularity
+            && isApplicableProduct
+            && isSpecificUsage
+            && isSpecificServiceLevel
+            && isSpecificBillingProvider;
 
     if (!isSnapshotPAYGEligible) {
       log.debug("Snapshot not eligible for sending to RHM {}", snapshot);

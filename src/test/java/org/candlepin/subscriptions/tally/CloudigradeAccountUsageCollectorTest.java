@@ -103,7 +103,9 @@ class CloudigradeAccountUsageCollectorTest {
     assertEquals(
         1,
         accountUsage
-            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
+            .getCalculation(
+                new UsageCalculation.Key(
+                    "RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
             .getTotals(HardwareMeasurementType.AWS_CLOUDIGRADE)
             .getInstances());
   }
@@ -159,7 +161,9 @@ class CloudigradeAccountUsageCollectorTest {
     assertEquals(
         1,
         accountUsage
-            .getCalculation(new UsageCalculation.Key("RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
+            .getCalculation(
+                new UsageCalculation.Key(
+                    "RHEL", ServiceLevel._ANY, Usage._ANY, BillingProvider._ANY, null))
             .getTotals(HardwareMeasurementType.AWS_CLOUDIGRADE)
             .getInstances());
   }

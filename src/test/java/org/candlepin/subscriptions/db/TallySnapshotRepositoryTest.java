@@ -136,16 +136,18 @@ class TallySnapshotRepositoryTest {
     repository.flush();
 
     List<TallySnapshot> found =
-        repository.findSnapshot("A1",
-                        "P1",
-                        Granularity.DAILY,
-                        ServiceLevel.EMPTY,
-                        Usage.EMPTY,
-                        BillingProvider.EMPTY,
-                        "sellerAcct",
-                        LONG_AGO,
-                        FAR_FUTURE,
-                        PageRequest.of(0, 10))
+        repository
+            .findSnapshot(
+                "A1",
+                "P1",
+                Granularity.DAILY,
+                ServiceLevel.EMPTY,
+                Usage.EMPTY,
+                BillingProvider.EMPTY,
+                "sellerAcct",
+                LONG_AGO,
+                FAR_FUTURE,
+                PageRequest.of(0, 10))
             .stream()
             .collect(Collectors.toList());
     assertEquals(1, found.size());

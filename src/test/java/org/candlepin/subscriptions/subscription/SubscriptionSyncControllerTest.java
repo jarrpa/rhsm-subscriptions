@@ -317,8 +317,10 @@ class SubscriptionSyncControllerTest {
 
   @Test
   void doesNotAllowReservedValuesInKey() {
-    UsageCalculation.Key key1 = new Key(String.valueOf(1), ServiceLevel._ANY, Usage.PRODUCTION, BillingProvider._ANY, null);
-    UsageCalculation.Key key2 = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage._ANY, BillingProvider._ANY, null);
+    UsageCalculation.Key key1 =
+        new Key(String.valueOf(1), ServiceLevel._ANY, Usage.PRODUCTION, BillingProvider._ANY, null);
+    UsageCalculation.Key key2 =
+        new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage._ANY, BillingProvider._ANY, null);
     Optional<String> orgId = Optional.of("org1000");
 
     assertThrows(
@@ -335,7 +337,13 @@ class SubscriptionSyncControllerTest {
 
   @Test
   void findsSubscriptionId() {
-    UsageCalculation.Key key = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage.PRODUCTION, BillingProvider.RED_HAT, "xyz");
+    UsageCalculation.Key key =
+        new Key(
+            String.valueOf(1),
+            ServiceLevel.STANDARD,
+            Usage.PRODUCTION,
+            BillingProvider.RED_HAT,
+            "xyz");
     Subscription s = new Subscription();
     s.setStartDate(OffsetDateTime.now().minusDays(7));
     s.setEndDate(OffsetDateTime.now().plusDays(7));
@@ -364,7 +372,13 @@ class SubscriptionSyncControllerTest {
 
   @Test
   void memoizesSubscriptionId() {
-    UsageCalculation.Key key = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage.PRODUCTION, BillingProvider.RED_HAT, "abc");
+    UsageCalculation.Key key =
+        new Key(
+            String.valueOf(1),
+            ServiceLevel.STANDARD,
+            Usage.PRODUCTION,
+            BillingProvider.RED_HAT,
+            "abc");
     Subscription s = new Subscription();
     s.setStartDate(OffsetDateTime.now().minusDays(7));
     s.setEndDate(OffsetDateTime.now().plusDays(7));

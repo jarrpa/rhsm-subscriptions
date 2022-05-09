@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import org.candlepin.subscriptions.db.model.*;
 import org.candlepin.subscriptions.json.Measurement;
 import org.slf4j.Logger;
@@ -49,7 +48,12 @@ public class UsageCalculation {
     private final BillingProvider billingProvider;
     private final String billingAccountId;
 
-    public Key(String productId, ServiceLevel sla, Usage usage, BillingProvider billingProvider, String billingAccountId) {
+    public Key(
+        String productId,
+        ServiceLevel sla,
+        Usage usage,
+        BillingProvider billingProvider,
+        String billingAccountId) {
       this.productId = productId;
       this.sla = sla;
       this.usage = usage;
@@ -99,12 +103,29 @@ public class UsageCalculation {
     }
 
     public static Key fromTallySnapshot(TallySnapshot snapshot) {
-      return new Key(snapshot.getProductId(), snapshot.getServiceLevel(), snapshot.getUsage(), snapshot.getBillingProvider(), snapshot.getBillingAccountId());
+      return new Key(
+          snapshot.getProductId(),
+          snapshot.getServiceLevel(),
+          snapshot.getUsage(),
+          snapshot.getBillingProvider(),
+          snapshot.getBillingAccountId());
     }
 
     @Override
     public String toString() {
-      return "Key{" + "productId='" + productId + '\'' + ", sla=" + sla + ", usage=" + usage + ", billingProvider=" + billingProvider + ", billingAccountId=" + billingAccountId +'}';
+      return "Key{"
+          + "productId='"
+          + productId
+          + '\''
+          + ", sla="
+          + sla
+          + ", usage="
+          + usage
+          + ", billingProvider="
+          + billingProvider
+          + ", billingAccountId="
+          + billingAccountId
+          + '}';
     }
   }
 
@@ -209,9 +230,13 @@ public class UsageCalculation {
     return key.usage;
   }
 
-  public BillingProvider getBillingProvider() { return key.billingProvider;}
+  public BillingProvider getBillingProvider() {
+    return key.billingProvider;
+  }
 
-  public String getBillingAccountId() { return key.billingAccountId;}
+  public String getBillingAccountId() {
+    return key.billingAccountId;
+  }
 
   public Totals getTotals(HardwareMeasurementType type) {
     return mappedTotals.get(type);
@@ -316,7 +341,9 @@ public class UsageCalculation {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append(
-        String.format("[Product: %s, sla: %s, usage: %s, billingProvider: %s, billingAccountId: %s", key.productId, key.sla, key.usage, key.billingProvider, key.billingAccountId));
+        String.format(
+            "[Product: %s, sla: %s, usage: %s, billingProvider: %s, billingAccountId: %s",
+            key.productId, key.sla, key.usage, key.billingProvider, key.billingAccountId));
     for (Entry<HardwareMeasurementType, Totals> entry : mappedTotals.entrySet()) {
       builder.append(String.format(", %s: %s", entry.getKey(), entry.getValue()));
     }

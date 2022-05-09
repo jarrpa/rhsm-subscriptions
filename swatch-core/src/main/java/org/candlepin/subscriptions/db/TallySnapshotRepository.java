@@ -44,26 +44,26 @@ public interface TallySnapshotRepository extends JpaRepository<TallySnapshot, UU
   // method
 
   @Query(
-          "SELECT t FROM TallySnapshot t where "
-          +"t.accountNumber = :accountNumber and "
-          +"t.productId = :productId and "
-          +"t.granularity = :granularity  and "
-          +"t.serviceLevel = :serviceLevel and "
-          +"t.usage = :usage and "
-          +"t.billingProvider = :billingProvider and "
-          +"t.billingAccountId = :billingAcctId and "
-          +"t.snapshotDate between :beginning and :ending")
-  Page<TallySnapshot> findSnapshot(
-          @Param("accountNumber") String accountNumber,
-          @Param("productId") String productId,
-          @Param("granularity") Granularity granularity,
-          @Param("serviceLevel") ServiceLevel serviceLevel,
-          @Param("usage") Usage usage,
-          @Param("billingProvider") BillingProvider billingProvider,
-          @Param("billingAcctId") String billingAccountId,
-          @Param("beginning") OffsetDateTime beginning,
-          @Param("ending") OffsetDateTime ending,
-          @Param("pageable") Pageable pageable);
+      "SELECT t FROM TallySnapshot t where "
+          + "t.accountNumber = :accountNumber and "
+          + "t.productId = :productId and "
+          + "t.granularity = :granularity  and "
+          + "t.serviceLevel = :serviceLevel and "
+          + "t.usage = :usage and "
+          + "t.billingProvider = :billingProvider and "
+          + "t.billingAccountId = :billingAcctId and "
+          + "t.snapshotDate between :beginning and :ending")
+  Page<TallySnapshot> findSnapshot( // NOSONAR
+      @Param("accountNumber") String accountNumber,
+      @Param("productId") String productId,
+      @Param("granularity") Granularity granularity,
+      @Param("serviceLevel") ServiceLevel serviceLevel,
+      @Param("usage") Usage usage,
+      @Param("billingProvider") BillingProvider billingProvider,
+      @Param("billingAcctId") String billingAccountId,
+      @Param("beginning") OffsetDateTime beginning,
+      @Param("ending") OffsetDateTime ending,
+      @Param("pageable") Pageable pageable);
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   void deleteAllByAccountNumberAndGranularityAndSnapshotDateBefore(

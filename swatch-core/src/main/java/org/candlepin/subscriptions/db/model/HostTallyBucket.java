@@ -72,7 +72,9 @@ public class HostTallyBucket implements Serializable {
       int sockets,
       HardwareMeasurementType type) {
     this.host = host;
-    setKey(new HostBucketKey(host, productId, sla, usage, billingProvider, billingAccountId, asHypervisor));
+    setKey(
+        new HostBucketKey(
+            host, productId, sla, usage, billingProvider, billingAccountId, asHypervisor));
     this.cores = cores;
     this.sockets = sockets;
     this.measurementType = type;

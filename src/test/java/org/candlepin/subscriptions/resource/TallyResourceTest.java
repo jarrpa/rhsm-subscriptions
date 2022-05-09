@@ -113,17 +113,18 @@ class TallyResourceTest {
   void testNullSlaQueryParameter() {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel._ANY),
-                              Mockito.eq(Usage.PRODUCTION),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel._ANY),
+                Mockito.eq(Usage.PRODUCTION),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -140,18 +141,20 @@ class TallyResourceTest {
     assertEquals(1, report.getData().size());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel._ANY),
-              Mockito.eq(Usage.PRODUCTION),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel._ANY,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
 
-      assertMetadata(
+    assertMetadata(
         report.getMeta(),
         RHEL_PRODUCT_ID,
         null,
@@ -182,17 +185,18 @@ class TallyResourceTest {
   void testNullUsageQueryParameter() {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.PREMIUM),
-                              Mockito.eq(Usage._ANY),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.PREMIUM),
+                Mockito.eq(Usage._ANY),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(List.of(snap)));
 
     TallyReport report =
@@ -208,18 +212,20 @@ class TallyResourceTest {
             false);
     assertEquals(1, report.getData().size());
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel.PREMIUM),
-              Mockito.eq(Usage._ANY),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.PREMIUM,
+            Usage._ANY,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
 
-      assertMetadata(
+    assertMetadata(
         report.getMeta(),
         RHEL_PRODUCT_ID,
         ServiceLevelType.PREMIUM,
@@ -234,17 +240,18 @@ class TallyResourceTest {
   void testUnsetSlaQueryParameter() {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.EMPTY),
-                              Mockito.eq(Usage.PRODUCTION),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.EMPTY),
+                Mockito.eq(Usage.PRODUCTION),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -261,18 +268,20 @@ class TallyResourceTest {
     assertEquals(1, report.getData().size());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel.EMPTY),
-              Mockito.eq(Usage.PRODUCTION),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.EMPTY,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
 
-      assertMetadata(
+    assertMetadata(
         report.getMeta(),
         RHEL_PRODUCT_ID,
         ServiceLevelType.EMPTY,
@@ -286,17 +295,18 @@ class TallyResourceTest {
   void testUnsetUsageQueryParameter() {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.PREMIUM),
-                              Mockito.eq(Usage.EMPTY),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.PREMIUM),
+                Mockito.eq(Usage.EMPTY),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -313,18 +323,20 @@ class TallyResourceTest {
     assertEquals(1, report.getData().size());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel.PREMIUM),
-              Mockito.eq(Usage.EMPTY),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.PREMIUM,
+            Usage.EMPTY,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
 
-      assertMetadata(
+    assertMetadata(
         report.getMeta(),
         RHEL_PRODUCT_ID,
         ServiceLevelType.PREMIUM,
@@ -338,17 +350,18 @@ class TallyResourceTest {
   void testSetSlaAndUsageQueryParameters() {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.PREMIUM),
-                              Mockito.eq(Usage.PRODUCTION),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.PREMIUM),
+                Mockito.eq(Usage.PRODUCTION),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -365,18 +378,20 @@ class TallyResourceTest {
     assertEquals(1, report.getData().size());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel.PREMIUM),
-              Mockito.eq(Usage.PRODUCTION),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
 
-      assertMetadata(
+    assertMetadata(
         report.getMeta(),
         RHEL_PRODUCT_ID,
         ServiceLevelType.PREMIUM,
@@ -401,17 +416,18 @@ class TallyResourceTest {
                 })
             .collect(Collectors.toList());
 
-      Mockito.when(
-                      repository.findSnapshot("account123456",
-                              ProductId.OPENSHIFT_DEDICATED_METRICS.toString(),
-                              Granularity.DAILY,
-                              ServiceLevel.PREMIUM,
-                              Usage.PRODUCTION,
-                              BillingProvider._ANY,
-                              null,
-                              OffsetDateTime.parse("2019-05-01T00:00Z"),
-                              OffsetDateTime.parse("2019-05-31T11:59:59.999Z"),
-                              null))
+    Mockito.when(
+            repository.findSnapshot(
+                "account123456",
+                ProductId.OPENSHIFT_DEDICATED_METRICS.toString(),
+                Granularity.DAILY,
+                ServiceLevel.PREMIUM,
+                Usage.PRODUCTION,
+                BillingProvider._ANY,
+                null,
+                OffsetDateTime.parse("2019-05-01T00:00Z"),
+                OffsetDateTime.parse("2019-05-31T11:59:59.999Z"),
+                null))
         .thenReturn(new PageImpl<>(snapshots));
 
     TallyReport report =
@@ -446,17 +462,18 @@ class TallyResourceTest {
   void testShouldUseQueryBasedOnHeaderAndParameters() throws Exception {
     TallySnapshot snap = new TallySnapshot();
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.PREMIUM),
-                              Mockito.eq(Usage.PRODUCTION),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.PREMIUM),
+                Mockito.eq(Usage.PRODUCTION),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -473,16 +490,18 @@ class TallyResourceTest {
     assertEquals(1, report.getData().size());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot(Mockito.eq("account123456"),
-              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-              Mockito.eq(Granularity.DAILY),
-              Mockito.eq(ServiceLevel.PREMIUM),
-              Mockito.eq(Usage.PRODUCTION),
-              Mockito.eq(BillingProvider._ANY),
-              Mockito.eq(null),
-              Mockito.eq(min),
-              Mockito.eq(max),
-              Mockito.eq(expectedPageable));
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
   }
 
   @Test
@@ -490,17 +509,18 @@ class TallyResourceTest {
     TallySnapshot snap = new TallySnapshot();
     snap.setMeasurement(HardwareMeasurementType.TOTAL, Uom.INSTANCE_HOURS, 42.0);
 
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel.PREMIUM),
-                              Mockito.eq(Usage.PRODUCTION),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.any(Pageable.class)))
+    Mockito.when(
+            repository.findSnapshot(
+                Mockito.eq("account123456"),
+                Mockito.eq(RHEL_PRODUCT_ID.toString()),
+                Mockito.eq(Granularity.DAILY),
+                Mockito.eq(ServiceLevel.PREMIUM),
+                Mockito.eq(Usage.PRODUCTION),
+                Mockito.eq(BillingProvider._ANY),
+                Mockito.eq(null),
+                Mockito.eq(min),
+                Mockito.eq(max),
+                Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(snap)));
 
     TallyReport report =
@@ -518,16 +538,18 @@ class TallyResourceTest {
     assertEquals(42.0, report.getMeta().getTotalInstanceHours());
 
     Pageable expectedPageable = PageRequest.of(1, 10);
-      Mockito.verify(repository).findSnapshot("account123456",
-              RHEL_PRODUCT_ID.toString(),
-              Granularity.DAILY,
-              ServiceLevel.PREMIUM,
-              Usage.PRODUCTION,
-              BillingProvider._ANY,
-              null,
-              min,
-              max,
-              expectedPageable);
+    Mockito.verify(repository)
+        .findSnapshot(
+            "account123456",
+            RHEL_PRODUCT_ID.toString(),
+            Granularity.DAILY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            null,
+            min,
+            max,
+            expectedPageable);
   }
 
   @Test
@@ -550,18 +572,19 @@ class TallyResourceTest {
   }
 
   @Test
-  public void reportDataShouldGetFilledWhenPagingParametersAreNotPassed() {
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel._ANY),
-                              Mockito.eq(Usage._ANY),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.eq(null)))
+  void reportDataShouldGetFilledWhenPagingParametersAreNotPassed() {
+    Mockito.when(
+            repository.findSnapshot(
+                "account123456",
+                RHEL_PRODUCT_ID.toString(),
+                Granularity.DAILY,
+                ServiceLevel._ANY,
+                Usage._ANY,
+                BillingProvider._ANY,
+                null,
+                min,
+                max,
+                null))
         .thenReturn(new PageImpl<>(Collections.emptyList()));
 
     TallyReport report =
@@ -595,18 +618,19 @@ class TallyResourceTest {
   @WithMockRedHatPrincipal(
       value = "123456",
       roles = {"ROLE_" + RoleProvider.SWATCH_ADMIN_ROLE})
-  public void canReportWithOnlyReportingRole() {
-      Mockito.when(
-                      repository.findSnapshot(Mockito.eq("account123456"),
-                              Mockito.eq(RHEL_PRODUCT_ID.toString()),
-                              Mockito.eq(Granularity.DAILY),
-                              Mockito.eq(ServiceLevel._ANY),
-                              Mockito.eq(Usage._ANY),
-                              Mockito.eq(BillingProvider._ANY),
-                              Mockito.eq(null),
-                              Mockito.eq(min),
-                              Mockito.eq(max),
-                              Mockito.eq(null)))
+  void canReportWithOnlyReportingRole() {
+    Mockito.when(
+            repository.findSnapshot(
+                "account123456",
+                RHEL_PRODUCT_ID.toString(),
+                Granularity.DAILY,
+                ServiceLevel._ANY,
+                Usage._ANY,
+                BillingProvider._ANY,
+                null,
+                min,
+                max,
+                null))
         .thenReturn(new PageImpl<>(Collections.emptyList()));
 
     TallyReport report =
@@ -647,16 +671,8 @@ class TallyResourceTest {
     HardwareMeasurement measurement = new HardwareMeasurement();
     measurement.setCores(4);
     snapshot.setHardwareMeasurement(HardwareMeasurementType.TOTAL, measurement);
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -682,16 +698,8 @@ class TallyResourceTest {
     snapshot.setAccountNumber("account123");
     snapshot.setSnapshotDate(OffsetDateTime.parse("2021-10-05T00:00Z"));
     snapshot.setMeasurement(HardwareMeasurementType.TOTAL, Uom.CORES, 4.0);
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -722,16 +730,8 @@ class TallyResourceTest {
       measurement.setCores(4);
       snapshot.setHardwareMeasurement(hardwareMeasurementType, measurement);
     }
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -760,16 +760,8 @@ class TallyResourceTest {
     for (HardwareMeasurementType hardwareMeasurementType : HardwareMeasurementType.values()) {
       snapshot.setMeasurement(hardwareMeasurementType, Uom.CORES, 4.0);
     }
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -791,16 +783,8 @@ class TallyResourceTest {
 
   @Test
   void testTallyReportDataReportFiller() {
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of()));
     TallyReportData response =
         resource.getTallyReportData(
@@ -832,16 +816,8 @@ class TallyResourceTest {
       snapshot.setHardwareMeasurement(
           HardwareMeasurementType.AWS_CLOUDIGRADE, cloudigradeMeasurement);
     }
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -870,16 +846,8 @@ class TallyResourceTest {
     if (hasCloudigradeMeasurement) {
       snapshot.setMeasurement(HardwareMeasurementType.AWS_CLOUDIGRADE, Uom.CORES, 4.0);
     }
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -915,16 +883,8 @@ class TallyResourceTest {
     snapshot.setHardwareMeasurement(HardwareMeasurementType.AWS, awsMeasurement);
     snapshot.setHardwareMeasurement(
         HardwareMeasurementType.AWS_CLOUDIGRADE, cloudigradeMeasurement);
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -955,16 +915,8 @@ class TallyResourceTest {
     if (hasCloudigradeMismatch) {
       snapshot.setMeasurement(HardwareMeasurementType.AWS_CLOUDIGRADE, Uom.CORES, 8.0);
     }
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot)));
     TallyReportData response =
         resource.getTallyReportData(
@@ -985,16 +937,8 @@ class TallyResourceTest {
 
   @Test
   void testTallyReportTotalMonthlyNotPopulatedWhenQueryIsNotBeginningOfMonth() {
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of()));
     TallyReportData response =
         resource.getTallyReportData(
@@ -1015,16 +959,8 @@ class TallyResourceTest {
 
   @Test
   void testTallyReportTotalMonthlyNotPopulatedWhenQueryIsNotEndOfMonth() {
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of()));
     TallyReportData response =
         resource.getTallyReportData(
@@ -1045,16 +981,8 @@ class TallyResourceTest {
 
   @Test
   void testTallyReportTotalMonthlyNotPopulatedWhenQueryIsPaged() {
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of()));
     TallyReportData response =
         resource.getTallyReportData(
@@ -1075,16 +1003,8 @@ class TallyResourceTest {
 
   @Test
   void testTallyReportTotalMonthlyPopulatedWithNoUnderlyingData() {
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of()));
     TallyReportData response =
         resource.getTallyReportData(
@@ -1115,16 +1035,8 @@ class TallyResourceTest {
     snapshot2.setSnapshotDate(OffsetDateTime.parse("2021-11-03T00:00Z"));
     snapshot2.setGranularity(Granularity.DAILY);
     snapshot2.setMeasurement(HardwareMeasurementType.TOTAL, Uom.CORES, 3.0);
-      when(repository.findSnapshot(any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any(),
-              any()))
+    when(repository.findSnapshot(
+            any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(new PageImpl<>(List.of(snapshot1, snapshot2)));
     TallyReportData response =
         resource.getTallyReportData(

@@ -151,12 +151,14 @@ public class InventoryAccountUsageCollector {
           Usage[] usages = new Usage[] {facts.getUsage(), Usage._ANY};
 
           // Calculate for each UsageKey
-          // review current implementation of default values, and determine if factnormalizer needs to handle billingAcctId & BillingProvider
+          // review current implementation of default values, and determine if factnormalizer needs
+          // to handle billingAcctId & BillingProvider
           products.forEach(
               product -> {
                 for (ServiceLevel sla : slas) {
                   for (Usage usage : usages) {
-                    UsageCalculation.Key key = new UsageCalculation.Key(product, sla, usage, BillingProvider._ANY,null);
+                    UsageCalculation.Key key =
+                        new UsageCalculation.Key(product, sla, usage, BillingProvider._ANY, null);
                     UsageCalculation calc = accountCalc.getOrCreateCalculation(key);
                     if (facts.getProducts().contains(product)) {
                       try {

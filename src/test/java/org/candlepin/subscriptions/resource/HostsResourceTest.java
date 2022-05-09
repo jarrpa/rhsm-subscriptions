@@ -80,7 +80,8 @@ class HostsResourceTest {
   @BeforeEach
   public void setup() throws AccountListSourceException {
     PageImpl<TallyHostView> mockPage = new PageImpl<>(Collections.emptyList());
-    when(repository.getTallyHostViews(any(), any(), any(), any(), any(), any(), any(), anyInt(), anyInt(), any()))
+    when(repository.getTallyHostViews(
+            any(), any(), any(), any(), any(), any(), any(), anyInt(), anyInt(), any()))
         .thenReturn(mockPage);
     when(accountListSource.containsReportingAccount("account123456")).thenReturn(true);
   }

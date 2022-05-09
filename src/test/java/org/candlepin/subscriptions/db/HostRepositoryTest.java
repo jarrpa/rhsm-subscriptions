@@ -35,7 +35,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.candlepin.subscriptions.db.model.*;
 import org.candlepin.subscriptions.json.Measurement;
 import org.candlepin.subscriptions.json.Measurement.Uom;
@@ -428,7 +427,8 @@ class HostRepositoryTest {
 
     // When a host has no buckets, it will not be returned.
     Page<TallyHostView> hosts =
-        repo.getTallyHostViews("account4", null, null, null, null, null, null, 0, 0, PageRequest.of(0, 10));
+        repo.getTallyHostViews(
+            "account4", null, null, null, null, null, null, 0, 0, PageRequest.of(0, 10));
     assertEquals(0, hosts.stream().count());
   }
 
@@ -763,7 +763,7 @@ class HostRepositoryTest {
     Pageable page = PageRequest.of(0, 1, Sort.by(sort));
     assertNotNull(
         repo.getTallyHostViews(
-            "account1234", "product", ServiceLevel._ANY, Usage._ANY, null, null,"", 1, 0, page));
+            "account1234", "product", ServiceLevel._ANY, Usage._ANY, null, null, "", 1, 0, page));
   }
 
   @Transactional
@@ -1112,12 +1112,13 @@ class HostRepositoryTest {
   }
 
   private HostTallyBucket addBucketToHost(
-          Host host,
-          String productId,
-          ServiceLevel sla,
-          Usage usage,
-          HardwareMeasurementType measurementType) {
-    return host.addBucket(productId, sla, usage, BillingProvider._ANY, "sellerAcctId", true, 4, 2, measurementType);
+      Host host,
+      String productId,
+      ServiceLevel sla,
+      Usage usage,
+      HardwareMeasurementType measurementType) {
+    return host.addBucket(
+        productId, sla, usage, BillingProvider._ANY, "sellerAcctId", true, 4, 2, measurementType);
   }
 
   private void assertTallyHostView(TallyHostView host, String inventoryId) {

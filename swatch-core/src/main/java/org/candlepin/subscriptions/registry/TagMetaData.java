@@ -49,4 +49,5 @@ public class TagMetaData {
   private Usage defaultUsage;
   private BillingProvider defaultProvider;
   private String billingAccountId;
+  private String billingModel;
 }

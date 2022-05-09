@@ -31,7 +31,6 @@ import static org.candlepin.subscriptions.tally.collector.TestHelper.physicalNon
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
 import org.candlepin.subscriptions.db.model.ServiceLevel;
@@ -139,6 +138,7 @@ class DefaultProductUsageCollectorTest {
   }
 
   private UsageCalculation.Key createUsageKey() {
-    return new UsageCalculation.Key("NON_RHEL", ServiceLevel.EMPTY, Usage.EMPTY, BillingProvider.EMPTY, null);
+    return new UsageCalculation.Key(
+        "NON_RHEL", ServiceLevel.EMPTY, Usage.EMPTY, BillingProvider.EMPTY, null);
   }
 }

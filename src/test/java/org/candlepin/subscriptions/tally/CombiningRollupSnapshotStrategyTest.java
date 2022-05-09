@@ -65,7 +65,8 @@ class CombiningRollupSnapshotStrategyTest {
             any(), any(), any(), any(), any()))
         .then(invocation -> Stream.empty());
     UsageCalculation.Key usageKey =
-        new UsageCalculation.Key(OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider._ANY, null);
+        new UsageCalculation.Key(
+            OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider._ANY, null);
     when(repo.save(any())).then(invocation -> invocation.getArgument(0));
     AccountUsageCalculation noonUsage = createAccountUsageCalculation(usageKey, 4.0);
     AccountUsageCalculation afternoonUsage = createAccountUsageCalculation(usageKey, 3.0);
@@ -114,7 +115,8 @@ class CombiningRollupSnapshotStrategyTest {
             any(), any(), any(), any(), any()))
         .then(invocation -> Stream.empty());
     UsageCalculation.Key usageKey =
-        new UsageCalculation.Key(OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider._ANY, null);
+        new UsageCalculation.Key(
+            OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider._ANY, null);
     when(repo.save(any())).then(invocation -> invocation.getArgument(0));
     AccountUsageCalculation day1Usage = createAccountUsageCalculation(usageKey, 4.0);
     AccountUsageCalculation day2Usage = createAccountUsageCalculation(usageKey, 3.0);
@@ -177,7 +179,12 @@ class CombiningRollupSnapshotStrategyTest {
             any(), any(), eq(Granularity.DAILY), any(), any()))
         .thenReturn(Stream.empty());
     UsageCalculation.Key usageKey =
-        new UsageCalculation.Key(OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, null);
+        new UsageCalculation.Key(
+            OPEN_SHIFT_HOURLY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider.RED_HAT,
+            null);
     when(repo.save(any())).then(invocation -> invocation.getArgument(0));
     AccountUsageCalculation noonUsage = createAccountUsageCalculation(usageKey, 4.0);
     AccountUsageCalculation afternoonUsage = createAccountUsageCalculation(usageKey, 3.0);
@@ -224,7 +231,12 @@ class CombiningRollupSnapshotStrategyTest {
             any(), any(), eq(Granularity.DAILY), any(), any()))
         .thenReturn(Stream.of(dailySnapshot));
     UsageCalculation.Key usageKey =
-        new UsageCalculation.Key(OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, null);
+        new UsageCalculation.Key(
+            OPEN_SHIFT_HOURLY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider.RED_HAT,
+            null);
     when(repo.save(any())).then(invocation -> invocation.getArgument(0));
 
     AccountUsageCalculation noonUsage = createAccountUsageCalculation(usageKey, 4.0);
@@ -281,7 +293,12 @@ class CombiningRollupSnapshotStrategyTest {
     when(repo.save(any())).then(invocation -> invocation.getArgument(0));
 
     UsageCalculation.Key usageKey =
-        new UsageCalculation.Key(OPEN_SHIFT_HOURLY, ServiceLevel.PREMIUM, Usage.PRODUCTION, BillingProvider.RED_HAT, null);
+        new UsageCalculation.Key(
+            OPEN_SHIFT_HOURLY,
+            ServiceLevel.PREMIUM,
+            Usage.PRODUCTION,
+            BillingProvider.RED_HAT,
+            null);
 
     AccountUsageCalculation afternoonUsage = createAccountUsageCalculation(usageKey, 3.0);
 

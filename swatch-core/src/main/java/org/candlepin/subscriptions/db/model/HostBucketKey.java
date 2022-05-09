@@ -57,7 +57,13 @@ public class HostBucketKey implements Serializable {
   private Boolean asHypervisor;
 
   public HostBucketKey(
-      Host host, String productId, ServiceLevel sla, Usage usage, BillingProvider billingProvider, String billingAccountId, Boolean asHypervisor) {
+      Host host,
+      String productId,
+      ServiceLevel sla,
+      Usage usage,
+      BillingProvider billingProvider,
+      String billingAccountId,
+      Boolean asHypervisor) {
     this.hostId = host == null ? null : host.getId();
     this.productId = productId;
     this.sla = sla;

@@ -113,7 +113,6 @@ public class CloudigradeAccountUsageCollector {
     if (usageCount.getUsage() == null) {
       usage = Usage._ANY;
     }
-    // TODO: Determine if billingProvider & billingAcctId should be added to usageCount
     return new UsageCalculation.Key(productId, sla, usage, BillingProvider._ANY, null);
   }
 

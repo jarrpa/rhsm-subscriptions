@@ -40,7 +40,6 @@ import org.candlepin.subscriptions.registry.TagMetaData;
 import org.candlepin.subscriptions.registry.TagProfile;
 import org.candlepin.subscriptions.util.ApplicationClock;
 import org.candlepin.subscriptions.util.DateRange;
-import org.candlepin.subscriptions.utilization.api.model.BillingProviderType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -230,11 +229,11 @@ public class MetricUsageCollector {
     instance.setInstanceType(event.getServiceType());
     instance.setInstanceId(event.getInstanceId());
     Optional.ofNullable(event.getBillingAccountId())
-            .map(Optional::get)
-            .ifPresent(instance::setBillingAccountId);
+        .map(Optional::get)
+        .ifPresent(instance::setBillingAccountId);
     Optional.ofNullable(event.getBillingProvider())
-            .map(this::getBillingProvider)
-            .ifPresent(instance::setBillingProvider);
+        .map(this::getBillingProvider)
+        .ifPresent(instance::setBillingProvider);
     Optional.ofNullable(event.getCloudProvider())
         .map(this::getCloudProvider)
         .map(HardwareMeasurementType::toString)
@@ -325,6 +324,7 @@ public class MetricUsageCollector {
             String.format("Unsupported value for cloud provider: %s", cloudProvider.value()));
     }
   }
+
   private BillingProvider getBillingProvider(Event.BillingProvider billingProvider) {
     switch (billingProvider) {
       case __EMPTY__:
@@ -341,7 +341,7 @@ public class MetricUsageCollector {
         return BillingProvider.RED_HAT;
       default:
         throw new IllegalArgumentException(
-                String.format("Unsupported value for billing provider: %s", billingProvider.value()));
+            String.format("Unsupported value for billing provider: %s", billingProvider.value()));
     }
   }
 
@@ -358,21 +358,24 @@ public class MetricUsageCollector {
             .orElse(serviceTypeMeta.map(TagMetaData::getDefaultUsage).orElse(Usage.EMPTY));
     BillingProvider effectiveProvider =
         Optional.ofNullable(event.getBillingProvider())
-                .map(Event.BillingProvider::toString)
-                .map(BillingProvider::fromString)
-                .orElse(serviceTypeMeta.map(TagMetaData::getDefaultProvider).orElse(BillingProvider._ANY));
+            .map(Event.BillingProvider::toString)
+            .map(BillingProvider::fromString)
+            .orElse(
+                serviceTypeMeta.map(TagMetaData::getDefaultProvider).orElse(BillingProvider._ANY));
     String billingAcctId =
         Optional.ofNullable(event.getBillingAccountId())
-                .map(Optional::get)
-                .orElse(serviceTypeMeta.map(TagMetaData::getBillingAccountId).orElse(null));
+            .map(Optional::get)
+            .orElse(serviceTypeMeta.map(TagMetaData::getBillingAccountId).orElse(null));
     Set<String> productIds = getProductIds(event);
 
     for (String productId : productIds) {
       for (ServiceLevel sla : Set.of(effectiveSla, ServiceLevel._ANY)) {
         for (Usage usage : Set.of(effectiveUsage, Usage._ANY)) {
-          for(BillingProvider billingProvider : Set.of(effectiveProvider, BillingProvider._ANY)) {
+          for (BillingProvider billingProvider : Set.of(effectiveProvider, BillingProvider._ANY)) {
             HostTallyBucket bucket = new HostTallyBucket();
-            bucket.setKey(new HostBucketKey(host, productId, sla, usage, billingProvider, billingAcctId, false));
+            bucket.setKey(
+                new HostBucketKey(
+                    host, productId, sla, usage, billingProvider, billingAcctId, false));
             host.addBucket(bucket);
           }
         }

@@ -328,11 +328,42 @@ class InventoryAccountUsageCollectorTest {
     AccountUsageCalculation a1Calc = calcs.get("A1");
     assertEquals(1, a1Calc.getProducts().size());
     checkTotalsCalculation(a1Calc, "A1", "O1", "RHEL", 16, 16, 2);
-    checkTotalsCalculation(a1Calc, "A1", "O1", "RHEL", ServiceLevel.EMPTY, Usage._ANY,BillingProvider._ANY, null, 16, 16, 2);
     checkTotalsCalculation(
-        a1Calc, "A1", "O1", "RHEL", ServiceLevel.EMPTY, Usage.DEVELOPMENT_TEST, BillingProvider._ANY, null, 6, 6, 1);
+        a1Calc,
+        "A1",
+        "O1",
+        "RHEL",
+        ServiceLevel.EMPTY,
+        Usage._ANY,
+        BillingProvider._ANY,
+        null,
+        16,
+        16,
+        2);
     checkTotalsCalculation(
-        a1Calc, "A1", "O1", "RHEL", ServiceLevel.EMPTY, Usage.PRODUCTION, BillingProvider._ANY, null, 10, 10, 1);
+        a1Calc,
+        "A1",
+        "O1",
+        "RHEL",
+        ServiceLevel.EMPTY,
+        Usage.DEVELOPMENT_TEST,
+        BillingProvider._ANY,
+        null,
+        6,
+        6,
+        1);
+    checkTotalsCalculation(
+        a1Calc,
+        "A1",
+        "O1",
+        "RHEL",
+        ServiceLevel.EMPTY,
+        Usage.PRODUCTION,
+        BillingProvider._ANY,
+        null,
+        10,
+        10,
+        1);
   }
 
   @Test
@@ -713,7 +744,17 @@ class InventoryAccountUsageCollectorTest {
       int instances) {
 
     checkTotalsCalculation(
-        calc, account, owner, product, serviceLevel, Usage._ANY, BillingProvider._ANY,null, cores, sockets, instances);
+        calc,
+        account,
+        owner,
+        product,
+        serviceLevel,
+        Usage._ANY,
+        BillingProvider._ANY,
+        null,
+        cores,
+        sockets,
+        instances);
   }
 
   private void checkTotalsCalculation(
@@ -730,9 +771,13 @@ class InventoryAccountUsageCollectorTest {
       int instances) {
     assertEquals(account, calc.getAccount());
     assertEquals(owner, calc.getOwner());
-    assertTrue(calc.containsCalculation(createUsageKey(product, serviceLevel, usage, billingProvider, billingAccountId)));
+    assertTrue(
+        calc.containsCalculation(
+            createUsageKey(product, serviceLevel, usage, billingProvider, billingAccountId)));
 
-    UsageCalculation prodCalc = calc.getCalculation(createUsageKey(product, serviceLevel, usage, billingProvider, billingAccountId));
+    UsageCalculation prodCalc =
+        calc.getCalculation(
+            createUsageKey(product, serviceLevel, usage, billingProvider, billingAccountId));
 
     assertEquals(product, prodCalc.getProductId());
     assertEquals(serviceLevel, prodCalc.getSla());
@@ -780,10 +825,15 @@ class InventoryAccountUsageCollectorTest {
   }
 
   private UsageCalculation.Key createUsageKey(String product, ServiceLevel sla) {
-    return new UsageCalculation.Key(product, sla, Usage._ANY, BillingProvider._ANY,null);
+    return new UsageCalculation.Key(product, sla, Usage._ANY, BillingProvider._ANY, null);
   }
 
-  private UsageCalculation.Key createUsageKey(String product, ServiceLevel sla, Usage usage, BillingProvider billingProvider, String billingAcctId) {
+  private UsageCalculation.Key createUsageKey(
+      String product,
+      ServiceLevel sla,
+      Usage usage,
+      BillingProvider billingProvider,
+      String billingAcctId) {
     return new UsageCalculation.Key(product, sla, usage, billingProvider, billingAcctId);
   }
 

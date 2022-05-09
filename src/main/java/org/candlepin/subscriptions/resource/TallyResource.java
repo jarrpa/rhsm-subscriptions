@@ -116,16 +116,17 @@ public class TallyResource implements TallyApi {
             limit);
 
     Page<org.candlepin.subscriptions.db.model.TallySnapshot> snapshotPage =
-            repository.findSnapshot(reportCriteria.getAccountNumber(),
-                    reportCriteria.getProductId(),
-                    reportCriteria.getGranularity(),
-                    reportCriteria.getServiceLevel(),
-                    reportCriteria.getUsage(),
-                    reportCriteria.getBillingProvider(),
-                    reportCriteria.getBillingAccountId(),
-                    reportCriteria.getBeginning(),
-                    reportCriteria.getEnding(),
-                    reportCriteria.getPageable());
+        repository.findSnapshot(
+            reportCriteria.getAccountNumber(),
+            reportCriteria.getProductId(),
+            reportCriteria.getGranularity(),
+            reportCriteria.getServiceLevel(),
+            reportCriteria.getUsage(),
+            reportCriteria.getBillingProvider(),
+            reportCriteria.getBillingAccountId(),
+            reportCriteria.getBeginning(),
+            reportCriteria.getEnding(),
+            reportCriteria.getPageable());
 
     Uom uom = Uom.fromValue(metricId.toString());
 
@@ -392,16 +393,17 @@ public class TallyResource implements TallyApi {
             limit);
 
     Page<org.candlepin.subscriptions.db.model.TallySnapshot> snapshotPage =
-            repository.findSnapshot(reportCriteria.getAccountNumber(),
-                    reportCriteria.getProductId(),
-                    reportCriteria.getGranularity(),
-                    reportCriteria.getServiceLevel(),
-                    reportCriteria.getUsage(),
-                    reportCriteria.getBillingProvider(),
-                    reportCriteria.getBillingAccountId(),
-                    reportCriteria.getBeginning(),
-                    reportCriteria.getEnding(),
-                    reportCriteria.getPageable());
+        repository.findSnapshot(
+            reportCriteria.getAccountNumber(),
+            reportCriteria.getProductId(),
+            reportCriteria.getGranularity(),
+            reportCriteria.getServiceLevel(),
+            reportCriteria.getUsage(),
+            reportCriteria.getBillingProvider(),
+            reportCriteria.getBillingAccountId(),
+            reportCriteria.getBeginning(),
+            reportCriteria.getEnding(),
+            reportCriteria.getPageable());
 
     List<TallySnapshot> snaps =
         snapshotPage.stream()

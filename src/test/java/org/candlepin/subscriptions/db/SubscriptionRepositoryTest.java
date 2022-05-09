@@ -28,9 +28,8 @@ import java.time.OffsetDateTime;
 import java.util.Random;
 import java.util.Set;
 import javax.transaction.Transactional;
-import org.candlepin.subscriptions.db.model.BillingProvider;
-
 import org.candlepin.subscriptions.db.model.*;
+import org.candlepin.subscriptions.db.model.BillingProvider;
 import org.candlepin.subscriptions.tally.UsageCalculation;
 import org.candlepin.subscriptions.tally.UsageCalculation.Key;
 import org.junit.jupiter.api.Test;
@@ -85,7 +84,13 @@ class SubscriptionRepositoryTest {
         createOffering("testSku2", "Test SKU 2", 1, ServiceLevel.PREMIUM, Usage.PRODUCTION, "ocp");
     offeringRepo.saveAndFlush(o2);
 
-    UsageCalculation.Key key = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage.PRODUCTION, BillingProvider._ANY, "sellerAcctId");
+    UsageCalculation.Key key =
+        new Key(
+            String.valueOf(1),
+            ServiceLevel.STANDARD,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            "sellerAcctId");
     Set<String> productNames = Set.of("Test SKU 1");
     var resultList =
         subscriptionRepo.findByAccountAndProductNameAndServiceLevel(
@@ -112,7 +117,13 @@ class SubscriptionRepositoryTest {
             "otherSku2", "Other SKU 2", 1, ServiceLevel.PREMIUM, Usage.PRODUCTION, "ocp");
     offeringRepo.saveAndFlush(o2);
 
-    UsageCalculation.Key key = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage.PRODUCTION, BillingProvider._ANY, "sellerAcctId");
+    UsageCalculation.Key key =
+        new Key(
+            String.valueOf(1),
+            ServiceLevel.STANDARD,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            "sellerAcctId");
     Set<String> productNames = Set.of("Other SKU 1", "Other SKU 2");
     var result =
         subscriptionRepo.findByAccountAndProductNameAndServiceLevel(
@@ -134,7 +145,13 @@ class SubscriptionRepositoryTest {
         createOffering("testSku1", "Test SKU 1", 1, ServiceLevel.STANDARD, Usage.PRODUCTION, "ocp");
     offeringRepo.save(offering);
 
-    UsageCalculation.Key key = new Key(String.valueOf(1), ServiceLevel.STANDARD, Usage.PRODUCTION, BillingProvider._ANY, "sellerAcctId");
+    UsageCalculation.Key key =
+        new Key(
+            String.valueOf(1),
+            ServiceLevel.STANDARD,
+            Usage.PRODUCTION,
+            BillingProvider._ANY,
+            "sellerAcctId");
     Set<String> productNames = Set.of("Test SKU 1");
 
     var resultList =
