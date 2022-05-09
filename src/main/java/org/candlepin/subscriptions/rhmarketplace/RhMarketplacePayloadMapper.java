@@ -46,6 +46,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /** Maps TallySummary to payload contents to be sent to RHM apis */
 @Service
@@ -54,9 +55,9 @@ public class RhMarketplacePayloadMapper {
 
   public static final String OPENSHIFT_DEDICATED_4_CPU_HOUR =
       "redhat.com:openshift_dedicated:4cpu_hour";
+  public static final String PAYG_BILLING = "PAYG";
 
   private final AccountService accountService;
-  private final RhMarketplaceProperties rhMarketplaceProperties;
   private final RhMarketplaceSubscriptionIdProvider idProvider;
   private final TagProfile tagProfile;
 
@@ -68,7 +69,6 @@ public class RhMarketplacePayloadMapper {
       RhMarketplaceProperties rhMarketplaceProperties) {
     this.tagProfile = tagProfile;
     this.accountService = accountService;
-    this.rhMarketplaceProperties = rhMarketplaceProperties;
     this.idProvider = idProvider;
   }
 
@@ -91,10 +91,9 @@ public class RhMarketplacePayloadMapper {
   }
 
   /**
-   * We only want to send snapshot information for OpenShift-metrics, OpenShift-dedicated-metrics
-   * product ids. To prevent duplicate data, we don't want to send snapshots with the Usage or
-   * ServiceLevel of "_ANY". We only want to report on hourly metrics, so the Granularity should be
-   * HOURLY.
+   * We only want to send snapshot information for PAYG product ids. To prevent duplicate data, we
+   * don't want to send snapshots with the Usage or ServiceLevel of "_ANY". We only want to report
+   * on hourly metrics, so the Granularity should be HOURLY.
    *
    * @param snapshot tally snapshot
    * @return eligibility status
@@ -102,8 +101,13 @@ public class RhMarketplacePayloadMapper {
   protected boolean isSnapshotPAYGEligible(TallySnapshot snapshot) {
     String productId = snapshot.getProductId();
 
-    var applicableProducts = rhMarketplaceProperties.getEligibleSwatchProductIds();
-    boolean isApplicableProduct = applicableProducts.contains(productId);
+    boolean isApplicableProduct = false;
+    var tagMeta = tagProfile.getTagMetaDataByTag(productId);
+    if (tagMeta.isPresent()) {
+      var billingModel = tagMeta.get().getBillingModel();
+      isApplicableProduct =
+          StringUtils.hasText(billingModel) && PAYG_BILLING.equalsIgnoreCase(billingModel);
+    }
 
     boolean isHourlyGranularity =
         Objects.equals(TallySnapshot.Granularity.HOURLY, snapshot.getGranularity());

@@ -89,7 +89,7 @@ class TallyResourceTest {
 
   @BeforeEach
   public void setupTests() throws AccountListSourceException {
-    when(accountListSource.containsReportingAccount(eq("account123456"))).thenReturn(true);
+    when(accountListSource.containsReportingAccount("account123456")).thenReturn(true);
   }
 
   @Test

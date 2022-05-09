@@ -29,7 +29,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.candlepin.subscriptions.db.TallySnapshotRepository;
-import org.candlepin.subscriptions.db.model.*;
+import org.candlepin.subscriptions.db.model.BillingProvider;
+import org.candlepin.subscriptions.db.model.Granularity;
+import org.candlepin.subscriptions.db.model.HardwareMeasurement;
+import org.candlepin.subscriptions.db.model.HardwareMeasurementType;
+import org.candlepin.subscriptions.db.model.ServiceLevel;
+import org.candlepin.subscriptions.db.model.TallySnapshot;
+import org.candlepin.subscriptions.db.model.Usage;
 import org.candlepin.subscriptions.json.Measurement;
 import org.candlepin.subscriptions.tally.AccountUsageCalculation;
 import org.candlepin.subscriptions.tally.UsageCalculation;
@@ -66,7 +72,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     String account = a1Calc.getAccount();
 
     UsageCalculation a1ProductCalc = a1Calc.getCalculation(createUsageKey(getTestProduct()));
-    roller.rollSnapshots(Arrays.asList(account), Arrays.asList(a1Calc));
+    roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
       List<TallySnapshot> currentSnaps =
         repository.findSnapshot(account,
@@ -92,7 +98,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
       OffsetDateTime endOfGranularPeriod) {
     AccountUsageCalculation a1Calc = createTestData();
     String account = a1Calc.getAccount();
-    roller.rollSnapshots(Arrays.asList(account), Arrays.asList(a1Calc));
+    roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
       List<TallySnapshot> currentSnaps =
         repository.findSnapshot(account,
@@ -115,7 +121,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     assertSnapshot(toBeUpdated, a1ProductCalc, granularity);
 
     a1ProductCalc.addPhysical(100, 200, 50);
-    roller.rollSnapshots(Arrays.asList(account), Arrays.asList(a1Calc));
+    roller.rollSnapshots(account, Arrays.asList(a1Calc));
 
       List<TallySnapshot> updatedSnaps =
         repository.findSnapshot(account,
@@ -160,7 +166,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     AccountUsageCalculation expectedCalc = expectMaxAccepted ? a1HighCalc : a1LowCalc;
 
     // Roll to the initial high values
-    roller.rollSnapshots(Arrays.asList(account), Arrays.asList(a1HighCalc));
+    roller.rollSnapshots(account, Arrays.asList(a1HighCalc));
 
       List<TallySnapshot> currentSnaps =
         repository.findSnapshot("A1",
@@ -182,7 +188,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
         toUpdate, a1HighCalc.getCalculation(createUsageKey(getTestProduct())), granularity);
 
     // Roll again with the low values
-    roller.rollSnapshots(Arrays.asList(account), Arrays.asList(a1LowCalc));
+    roller.rollSnapshots(account, Arrays.asList(a1LowCalc));
 
       List<TallySnapshot> updatedSnaps =
         repository.findSnapshot(account,
@@ -214,7 +220,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
       OffsetDateTime endOfGranularPeriod) {
 
     AccountUsageCalculation calc = createAccountCalc("12345678", "O1", getTestProduct(), 0, 0, 0);
-    roller.rollSnapshots(Collections.singletonList("12345678"), Collections.singletonList(calc));
+    roller.rollSnapshots("12345678", Collections.singletonList(calc));
 
       List<TallySnapshot> currentSnaps =
         repository.findSnapshot("A1",
@@ -280,7 +286,7 @@ public class SnapshotRollerTester<R extends BaseSnapshotRoller> {
     UsageCalculation a1ProductCalc = a1Calc.getCalculation(createUsageKey(getTestProduct()));
     assertNotNull(a1ProductCalc);
 
-    roller.rollSnapshots(List.of(account), List.of(a1Calc));
+    roller.rollSnapshots(account, List.of(a1Calc));
 
       List<TallySnapshot> updatedSnaps =
         repository.findSnapshot(account,

@@ -97,7 +97,9 @@ public class TallySnapshot implements Serializable {
   @Column(name = "granularity")
   private Granularity granularity;
 
-  /** @deprecated use tallyMeasurements instead */
+  /**
+   * @deprecated use tallyMeasurements instead
+   */
   @Deprecated(forRemoval = true)
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "hardware_measurements", joinColumns = @JoinColumn(name = "snapshot_id"))
@@ -123,7 +125,9 @@ public class TallySnapshot implements Serializable {
     return hardwareMeasurements.get(type);
   }
 
-  /** @deprecated use setMeasurement instead */
+  /**
+   * @deprecated use setMeasurement instead
+   */
   @Deprecated(forRemoval = true)
   public void setHardwareMeasurement(
       HardwareMeasurementType type, HardwareMeasurement measurement) {

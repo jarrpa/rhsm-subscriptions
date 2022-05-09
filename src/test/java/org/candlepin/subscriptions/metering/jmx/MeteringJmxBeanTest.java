@@ -71,13 +71,27 @@ class MeteringJmxBeanTest {
   @Test
   void testCustomMeteringForAccount() {
     String expectedAccount = "test-account";
-    int rangeInMins = 20;
+    int rangeInMins = 60;
     OffsetDateTime endDate = clock.startOfCurrentHour();
     OffsetDateTime startDate = endDate.minusMinutes(rangeInMins);
     jmx.performCustomMeteringForAccount(
         expectedAccount, PRODUCT_PROFILE_ID, clock.startOfCurrentHour().toString(), rangeInMins);
 
     verify(tasks).updateMetricsForAccount(expectedAccount, PRODUCT_PROFILE_ID, startDate, endDate);
+  }
+
+  @Test
+  void testBadRangeThrowsException() {
+    String expectedAccount = "test-account";
+    int rangeInMins = 20;
+    OffsetDateTime endDate = clock.startOfCurrentHour();
+    String startDate = endDate.minusMinutes(rangeInMins).toString();
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          jmx.performCustomMeteringForAccount(
+              expectedAccount, PRODUCT_PROFILE_ID, startDate, rangeInMins);
+        });
   }
 
   @Test
@@ -109,12 +123,12 @@ class MeteringJmxBeanTest {
 
     jmx.performMetering(PRODUCT_PROFILE_ID);
 
-    verify(tasks).updateMetricsForAllAccounts(PRODUCT_PROFILE_ID, startDate, endDate);
+    verify(tasks).updateMetricsForAllAccounts(PRODUCT_PROFILE_ID, 60);
   }
 
   @Test
   void testPerformCustomMeteringForAllAccounts() {
-    int rangeInMins = 20;
+    int rangeInMins = 60;
     OffsetDateTime endDate = clock.startOfCurrentHour();
     OffsetDateTime startDate = endDate.minusMinutes(rangeInMins);
     jmx.performCustomMetering(

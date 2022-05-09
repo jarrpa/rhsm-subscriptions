@@ -61,7 +61,7 @@ class CloudigradeAccountUsageCollectorTest {
   void testEnrichUsageWithCloudigradeDataHaltsWithBadUser() throws Exception {
     when(cloudigradeService.cloudigradeUserExists(ACCOUNT)).thenReturn(false);
     var calculations = new HashMap<String, AccountUsageCalculation>();
-    collector.enrichUsageWithCloudigradeData(calculations, Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(calculations, ACCOUNT);
     verify(cloudigradeService, never())
         .listDailyConcurrentUsages(any(), any(), any(), any(), any());
   }
@@ -80,7 +80,7 @@ class CloudigradeAccountUsageCollectorTest {
     when(cloudigradeService.cloudigradeUserExists(ACCOUNT)).thenReturn(true);
     when(cloudigradeService.listDailyConcurrentUsages(any(), any(), any(), any(), any()))
         .thenReturn(report);
-    collector.enrichUsageWithCloudigradeData(calculations, Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(calculations, ACCOUNT);
     assertEquals(1, calculations.size());
   }
 
@@ -99,8 +99,7 @@ class CloudigradeAccountUsageCollectorTest {
         .thenReturn(report);
 
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(
         1,
         accountUsage
@@ -129,8 +128,7 @@ class CloudigradeAccountUsageCollectorTest {
         .thenReturn(report);
 
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(0, accountUsage.getKeys().size());
   }
 
@@ -157,8 +155,7 @@ class CloudigradeAccountUsageCollectorTest {
     when(cloudigradeService.listDailyConcurrentUsages(any(), any(), any(), any(), any()))
         .thenReturn(report);
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(
         1,
         accountUsage
@@ -185,8 +182,7 @@ class CloudigradeAccountUsageCollectorTest {
     when(cloudigradeService.listDailyConcurrentUsages(any(), any(), any(), any(), any()))
         .thenReturn(report);
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(0, accountUsage.getKeys().size());
   }
 
@@ -204,8 +200,7 @@ class CloudigradeAccountUsageCollectorTest {
     when(cloudigradeService.listDailyConcurrentUsages(any(), any(), any(), any(), any()))
         .thenReturn(report);
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(0, accountUsage.getKeys().size());
   }
 
@@ -238,8 +233,7 @@ class CloudigradeAccountUsageCollectorTest {
     when(cloudigradeService.listDailyConcurrentUsages(any(), any(), any(), any(), any()))
         .thenReturn(report);
     AccountUsageCalculation accountUsage = new AccountUsageCalculation(ACCOUNT);
-    collector.enrichUsageWithCloudigradeData(
-        usageMapOf(ACCOUNT, accountUsage), Collections.singletonList(ACCOUNT));
+    collector.enrichUsageWithCloudigradeData(usageMapOf(ACCOUNT, accountUsage), ACCOUNT);
     assertEquals(1, accountUsage.getKeys().size());
     Optional<UsageCalculation.Key> usageKey = accountUsage.getKeys().stream().findFirst();
     assertTrue(usageKey.isPresent());

@@ -41,6 +41,10 @@ parameters:
     value: http://localhost:8101/subscriptions/
   - name: AWS_MARKETPLACE_ENDPOINT_URL
     value: 'http://localhost:8101/aws-marketplace/'
+  - name: AWS_MANUAL_SUBMISSION_ENABLED
+    value: 'false'
+  - name: TALLY_IN_FAIL_ON_DESER_FAILURE
+    value: 'true'
 
 objects:
 - apiVersion: cloud.redhat.com/v1alpha1
@@ -55,15 +59,11 @@ objects:
         partitions: 1
         topicName: platform.rhsm-subscriptions.tally
 
-    database:
-      name: db
-      version: 12
-
     pullSecrets:
       name: ${IMAGE_PULL_SECRET}
 
     deployments:
-      - name: swatch-producer-aws
+      - name: service
         minReplicas: 1
         webServices:
           public:
@@ -79,7 +79,7 @@ objects:
               path: /q/health/live
               port: 8000
               scheme: HTTP
-            initialDelaySeconds: 300
+            initialDelaySeconds: 20
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 5
@@ -89,7 +89,7 @@ objects:
               path: /q/health/ready
               port: 8000
               scheme: HTTP
-            initialDelaySeconds: 300
+            initialDelaySeconds: 20
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 5
@@ -134,6 +134,8 @@ objects:
               value: ${SPLUNK_HEC_INCLUDE_EX}
             - name: SWATCH_INTERNAL_SUBSCRIPTION_ENDPOINT
               value: ${SWATCH_INTERNAL_SUBSCRIPTION_ENDPOINT}
+            - name: AWS_MANUAL_SUBMISSION_ENABLED
+              value: ${AWS_MANUAL_SUBMISSION_ENABLED}
             - name: AWS_CREDENTIALS_JSON
               valueFrom:
                 secretKeyRef:
@@ -141,6 +143,13 @@ objects:
                   key: credentials
             - name: AWS_MARKETPLACE_ENDPOINT_URL
               value: ${AWS_MARKETPLACE_ENDPOINT_URL}
+            - name: SWATCH_SELF_PSK
+              valueFrom:
+                secretKeyRef:
+                  name: swatch-psks
+                  key: self
+            - name: TALLY_IN_FAIL_ON_DESER_FAILURE
+              value: ${TALLY_IN_FAIL_ON_DESER_FAILURE}
           volumeMounts:
             - name: logs
               mountPath: /logs
@@ -152,3 +161,10 @@ objects:
             - name: pinhead
               secret:
                 secretName: pinhead
+
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: swatch-psks
+  data:
+    self: ZHVtbXk=
