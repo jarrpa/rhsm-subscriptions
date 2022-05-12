@@ -361,7 +361,9 @@ public class MetricUsageCollector {
             .map(Event.BillingProvider::toString)
             .map(BillingProvider::fromString)
             .orElse(
-                serviceTypeMeta.map(TagMetaData::getDefaultProvider).orElse(BillingProvider._ANY));
+                serviceTypeMeta
+                    .map(TagMetaData::getDefaultProvider)
+                    .orElse(BillingProvider.RED_HAT));
     String billingAcctId =
         Optional.ofNullable(event.getBillingAccountId())
             .map(Optional::get)
