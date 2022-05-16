@@ -138,7 +138,6 @@ public class RhMarketplacePayloadMapper {
   protected boolean isSnapshotRHMarketplaceEligible(TallySnapshot snapshot) {
     return snapshot.getBillingProvider() == null
         || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.RED_HAT)
-        || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.ANY)
         || snapshot.getBillingProvider().equals(TallySnapshot.BillingProvider.__EMPTY__);
   }
 
@@ -158,6 +157,7 @@ public class RhMarketplacePayloadMapper {
 
     var eligibleSnapshots =
         tallySummary.getTallySnapshots().stream()
+            .map(this::defaultNullBillingProvider)
             .filter(this::isSnapshotRHMarketplaceEligible)
             .filter(this::isSnapshotPAYGEligible)
             .collect(Collectors.toList());
@@ -207,6 +207,13 @@ public class RhMarketplacePayloadMapper {
       events.add(event);
     }
     return events;
+  }
+
+  private TallySnapshot defaultNullBillingProvider(TallySnapshot tallySnapshot) {
+    if (tallySnapshot.getBillingProvider() == null) {
+      tallySnapshot.setBillingProvider(TallySnapshot.BillingProvider.RED_HAT);
+    }
+    return tallySnapshot;
   }
 
   /**

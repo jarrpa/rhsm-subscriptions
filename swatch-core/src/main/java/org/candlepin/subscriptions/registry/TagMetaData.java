@@ -48,6 +48,5 @@ public class TagMetaData {
   private ServiceLevel defaultSla;
   private Usage defaultUsage;
   private BillingProvider defaultProvider;
-  private String billingAccountId;
   private String billingModel;
 }
