@@ -60,5 +60,6 @@
     <include file="liquibase/202204131346-add-billing-account-id-column-to-hosts.xml" />
     <include file="liquibase/202204041547-add-billing-account-id-column-to-snapshot-table.xml" />
     <include file="liquibase/202205021439-add-billingProvider-and-billingAccountId-columns-to-host-tally-buckets.xml" />
+    <include file="liquibase/202205161446-update-index-on-host-tally-bucket.xml"/>
 </databaseChangeLog>
 <!-- vim: set expandtab sts=4 sw=4 ai: -->
