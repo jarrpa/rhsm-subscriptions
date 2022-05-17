@@ -165,8 +165,8 @@ public class RhMarketplacePayloadMapper {
     List<UsageEvent> events = new ArrayList<>();
     for (TallySnapshot snapshot : eligibleSnapshots) {
       String productId = snapshot.getProductId();
-      // billingAcctID is a temp is blank for now, as HOstTallyBucket doesn't accept null.
-      String billingAcctId = "";
+      // billingAcctID is a temp is _ANY for now, as HostTallyBucket doesn't accept null.
+      String billingAcctId = "_ANY";
 
       // call MarketplaceIdProvider.findSubscriptionId once available
       UsageCalculation.Key usageKey =

@@ -117,7 +117,7 @@ class AccountServiceInventoryRepositoryTest {
             ServiceLevel.PREMIUM,
             Usage.PRODUCTION,
             BillingProvider._ANY,
-            "",
+            "_ANY",
             false,
             4,
             4,
