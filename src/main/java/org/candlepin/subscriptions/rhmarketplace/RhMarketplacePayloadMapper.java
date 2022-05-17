@@ -165,6 +165,8 @@ public class RhMarketplacePayloadMapper {
     List<UsageEvent> events = new ArrayList<>();
     for (TallySnapshot snapshot : eligibleSnapshots) {
       String productId = snapshot.getProductId();
+      // billingAcctID is a temp is blank for now, as HOstTallyBucket doesn't accept null.
+      String billingAcctId = "";
 
       // call MarketplaceIdProvider.findSubscriptionId once available
       UsageCalculation.Key usageKey =
@@ -173,7 +175,7 @@ public class RhMarketplacePayloadMapper {
               ServiceLevel.fromString(snapshot.getSla().toString()),
               Usage.fromString(snapshot.getUsage().toString()),
               BillingProvider.fromString(snapshot.getBillingProvider().toString()),
-              null);
+              billingAcctId);
 
       OffsetDateTime snapshotDate = snapshot.getSnapshotDate();
       String eventId = snapshot.getId().toString();

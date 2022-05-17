@@ -367,7 +367,7 @@ class MetricUsageCollectorTest {
 
     UsageCalculation.Key serverKey =
         new UsageCalculation.Key(
-            OSD_PRODUCT_ID, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
+            OSD_PRODUCT_ID, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, "");
     assertTrue(accountUsageCalculation.containsCalculation(serverKey));
     assertEquals(
         Double.valueOf(42.0),
@@ -411,7 +411,7 @@ class MetricUsageCollectorTest {
 
     UsageCalculation.Key engIdKey =
         new UsageCalculation.Key(
-            RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, null);
+            RHEL, ServiceLevel.PREMIUM, Usage._ANY, BillingProvider.RED_HAT, "");
     assertTrue(accountUsageCalculation.containsCalculation(engIdKey));
     assertEquals(
         Double.valueOf(42.0),
