@@ -90,6 +90,7 @@ public class TallySnapshot implements Serializable {
   @Column(name = "billing_provider")
   private BillingProvider billingProvider = BillingProvider._ANY;
 
+  //TODO
   @Column(name = "billing_account_id")
   private String billingAccountId;
 
